@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "YZXLocationInfoModel.h"
 
-typedef void (^YZXLocationSuccessBlock)(YZXLocationInfoModel *locationInfo, double longitude, double latitude);
+typedef void (^YZXLocationSuccessBlock)(YZXLocationInfoModel *locationInfo);
 typedef void (^YZXLocationFailBlock)(NSError *error);
 
 @interface YZXLocationManager : NSObject

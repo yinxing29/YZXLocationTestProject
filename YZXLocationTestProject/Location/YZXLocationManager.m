@@ -139,8 +139,6 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
-    NSLog(@"longitude = %lf, latitude = %lf",locations.lastObject.coordinate.longitude,locations.lastObject.coordinate.latitude);
-    
     CLLocation *newLocation = [locations lastObject];
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
@@ -156,6 +154,8 @@
                 }
                 if (self.successBlock) {
                     YZXLocationInfoModel *infoModel = [[YZXLocationInfoModel alloc] init];
+                    infoModel.lon = locations.lastObject.coordinate.longitude;
+                    infoModel.lat = locations.lastObject.coordinate.latitude;
                     if ([[UIDevice currentDevice].systemVersion doubleValue] >= 10.0) {
                         infoModel.name = placemark.name;
                         infoModel.thoroughfare = placemark.thoroughfare;
@@ -171,7 +171,7 @@
                         infoModel.ocean = placemark.ocean;
                         infoModel.areasOfInterest = placemark.areasOfInterest;
                         infoModel.FormattedAddressLines = [NSString stringWithFormat:@"%@%@%@%@%@%@",placemark.country ? : @"",placemark.administrativeArea ? : @"",placemark.locality ? : @"",placemark.subLocality ? : @"",placemark.thoroughfare ? : @"",placemark.subThoroughfare ? : @""];
-                        self.successBlock(infoModel, locations.lastObject.coordinate.longitude,locations.lastObject.coordinate.latitude);
+                        self.successBlock(infoModel);
                     }else {
                         NSDictionary *dic = placemark.addressDictionary;
                         infoModel.name = dic[@"Name"];
@@ -182,7 +182,7 @@
                         if ([dic[@"FormattedAddressLines"] isKindOfClass:[NSArray class]]) {
                             infoModel.FormattedAddressLines = [dic[@"FormattedAddressLines"] firstObject];
                         }
-                        self.successBlock(infoModel, locations.lastObject.coordinate.longitude,locations.lastObject.coordinate.latitude);
+                        self.successBlock(infoModel);
                     }
                 }
                 [self p_removeBlock];

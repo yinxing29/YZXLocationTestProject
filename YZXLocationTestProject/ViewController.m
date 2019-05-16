@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[YZXLocationManager shareManager] setAddressDetailsSuccessBlock:^(YZXLocationInfoModel *locationInfo, double longitude, double latitude) {
+    [[YZXLocationManager shareManager] setAddressDetailsSuccessBlock:^(YZXLocationInfoModel *locationInfo) {
         NSLog(@"%@",locationInfo);
     } failBlock:^(NSError *error) {
         

@@ -72,4 +72,14 @@
  */
 @property (nonatomic, copy, nullable) NSString *FormattedAddressLines;
 
+/**
+ 纬度
+ */
+@property (nonatomic, assign) double           lat;
+
+/**
+ 经度
+ */
+@property (nonatomic, assign) double           lon;
+
 @end
