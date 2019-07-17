@@ -60,6 +60,7 @@
     switch ([CLLocationManager authorizationStatus]) {
         case kCLAuthorizationStatusNotDetermined:
             NSLog(@"用户还未决定");
+            [self getStatusPermission];
             break;
         case kCLAuthorizationStatusRestricted:
             NSLog(@"定位服务授权状态受限制，用户不能改变。");
@@ -107,9 +108,9 @@
         [self p_removeBlock];
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if ([[UIDevice currentDevice].systemVersion doubleValue] >= 10.0) {
+        if (@available(iOS 10.0, *)) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
-        }else {
+        } else {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
         }
     }]];
@@ -156,7 +157,7 @@
                     YZXLocationInfoModel *infoModel = [[YZXLocationInfoModel alloc] init];
                     infoModel.lon = locations.lastObject.coordinate.longitude;
                     infoModel.lat = locations.lastObject.coordinate.latitude;
-                    if ([[UIDevice currentDevice].systemVersion doubleValue] >= 10.0) {
+                    if (@available(iOS 10.0, *)) {
                         infoModel.name = placemark.name;
                         infoModel.thoroughfare = placemark.thoroughfare;
                         infoModel.subThoroughfare = placemark.subThoroughfare;
